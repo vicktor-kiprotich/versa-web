@@ -4,7 +4,7 @@ import "../styles/globals.css";
 
 import client from "./client/apollo_client";
 import PageLayout from "./layouts/layout";
-import hive from "./store/store";
+import hive from "../store/store";
 
 export default function App({ Component, pageProps }) {
   return (
