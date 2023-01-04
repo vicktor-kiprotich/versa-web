@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import CategoriesSection from "./components/categories_section";
 import Hero from "./components/hero";
-import { ALL_CATEGORIES } from "./graphql/queries/queries";
+import { ALL_CATEGORIES } from "../graphql/queries/queries";
 
 // export async function getServerSideProps() {
 //   const { loading, data: result, error } = useQuery(ALL_CATEGORIES);

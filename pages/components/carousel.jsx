@@ -11,7 +11,7 @@ import ChevronRight from "../icons/chevron_right";
  * @param images - Array of images with src and alt attributes
  * @returns React component
  */
-export default function Carousel({ images }) {
+export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const timer = 7000;
   const handleNextSlide = () => {
@@ -27,7 +27,11 @@ export default function Carousel({ images }) {
   // setInterval(() => {
   //   handleNextSlide();
   // }, timer);
-
+  const images = [
+    "/banner3.png",
+    "https://img.freepik.com/free-psd/online-shopping-banner-template_23-2148971178.jpg?w=1480&t=st=1672738383~exp=1672738983~hmac=7768a43cf3d618440a81630e313d2a055427930aa54a2055742ad95f92118745",
+    "https://img.freepik.com/free-psd/online-shopping-banner-template_23-2148582750.jpg?w=1480&t=st=1672735413~exp=1672736013~hmac=6379a7eded5e65d9ae18d14beadf265f873e5a76a02938727c52ecc070ff6c69",
+  ];
   return (
     <div className='relative'>
       <ChevronLeft
@@ -40,19 +44,20 @@ export default function Carousel({ images }) {
           onSwipeRight={handlePrevSlide}
           className='relative z-10 w-full h-full'
         >
-          {images.map((image, index) => {
-            if (index === currentSlide) {
-              return (
-                <Image
-                  key={image.id}
-                  src={image}
-                  fill='fill'
-                  objectFit='contain'
-                  className='ease-in-out '
-                />
-              );
-            }
-          })}
+          {images &&
+            images.map((image, index) => {
+              if (index === currentSlide) {
+                return (
+                  <Image
+                    key={image.id}
+                    src={image}
+                    fill='fill'
+                    objectFit='contain'
+                    className='ease-in-out '
+                  />
+                );
+              }
+            })}
         </Swipe>
       </div>
       <ChevronRight

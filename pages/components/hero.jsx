@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Image from "next/image";
 import React from "react";
-import { ALL_CATEGORIES } from "../graphql/queries/queries";
+import { ALL_CATEGORIES } from "../../graphql/queries/queries";
 import Carousel from "./carousel";
 import Features from "./features";
 
@@ -33,7 +33,7 @@ export default function Hero() {
           )}
         </div> */}
         <div className='lg:mb-7 mt-6 rounded-lg'>
-          <Carousel images={images} />
+          <Carousel />
         </div>
         <div className=' mb-7 mt-3 lg:mt-6 '>
           <div className='grid gap-4  grid-cols-1 sm:grid-cols-1 xl:gap-6'>

@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
-import { SEARCH_PRODUCTS } from "../graphql/queries/queries";
+import { SEARCH_PRODUCTS } from "../../graphql/queries/queries";
 
 export default function Collection() {
   const router = useRouter();

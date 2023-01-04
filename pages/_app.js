@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";
 import "../styles/globals.css";
 
-import client from "./client/apollo_client";
+import client from "../client/apollo_client";
 import PageLayout from "./layouts/layout";
 import hive from "../store/store";
 
