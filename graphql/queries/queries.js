@@ -38,7 +38,7 @@ export const getProducts = gql`
     }
   }
 `;
-export const getProduct = gql`
+export const GET_PRODUCT = gql`
   query getProduct($id: ID!) {
     product(id: $id) {
       id

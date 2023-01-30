@@ -5,8 +5,8 @@ export default function CollectionCard({ name, image, totalItems, id, slug }) {
   return (
     <Link
       href={{
-        pathname: `/shop-front/${name}`,
-        query: { name: name, slug: slug, id: id },
+        pathname: `/shop-front/`,
+        query: { slug: slug, id: id },
       }}
     >
       <div className='flex flex-col sm:flex-row items-center gap-1 bg-slate-300 p-2 rounded cursor-pointer '>

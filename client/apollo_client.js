@@ -16,6 +16,7 @@ const httpLink = new HttpLink({
   uri: "http://localhost:3000/shop-api",
 });
 const client = new ApolloClient({
+  ssrMode: true,
   link: from([errorsLink, httpLink]),
   cache: new InMemoryCache(),
 });

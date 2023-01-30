@@ -36,4 +36,27 @@
       max-width: 80%;
     }
   }
+  .buttons--quickview {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 48px;
+    opacity: 0;
+    text-align: center;
+    box-shadow: 0 3px 6px 1px rgb(0 0 0 / 20%);
+    transition: all 0.3s ease-in-out 0s;
+  }
+  .product-cart-button {
+    width: 100%;
+    bottom: -40px;
+    left: 0;
+    z-index: 12;
+    transition: bottom 0.3s ease-in-out;
+  }
 }
