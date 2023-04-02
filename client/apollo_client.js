@@ -13,7 +13,7 @@ const errorsLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network Error] :${networkError}`);
 });
 const httpLink = new HttpLink({
-  uri: "http://localhost:3000/shop-api",
+  uri: "http://localhost:5000/shop-api",
 });
 const client = new ApolloClient({
   ssrMode: true,

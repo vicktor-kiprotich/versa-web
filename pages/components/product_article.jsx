@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { formatCurrency, priceFormatter } from "../../utils/price_formatter";
 import AddToCart from "../icons/add_to_cart";
 import Eye from "../icons/eye_icon";
 import Heart from "../icons/heart_icon";
@@ -36,7 +37,7 @@ export default function ProductArticle({
           Common Good
         </div>
         <Link
-          className='text-base font-semibold  leading-5  line-clamp-2 mb-2 hover:text-amber-500'
+          className='text-base font-semibold  leading-5  line-clamp-2 mb-2 hover:text-amber-500 text-slate-800'
           href={{
             pathname: `/shop-front/${collection}/`,
             query: { id: id },
@@ -46,7 +47,8 @@ export default function ProductArticle({
         </Link>
         <div className='space-s-2 mb-4 lg:mb-4'>
           <span className='inline-block font-semibold text-15px lg:text-base text-amber-500'>
-            Ksh {min} -- {max}
+            {formatCurrency("en-ke", "KES", min)}--{" "}
+            {formatCurrency("en-ke", "KES", max)}
           </span>
         </div>
         <div className='flex product-cart-button justify-evenly'>

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <div className='bg-purple-800 '>
+    <div className='bg-purple-800 mt-auto'>
       <div className='grid 2xl:xl:lg:md:grid-cols-6  grid-cols-2 container p-4 mt-10 pt-10 text-slate-300 place-content-center gap gap-x-20 mx-auto'>
         <div className='col-span-2 2xl:xl:lg:md:col-span-1'>
           <div>
