@@ -5,7 +5,7 @@ export default function CollectionCard({ name, image, totalItems, id, slug }) {
   return (
     <Link
       href={{
-        pathname: `/shop-front/`,
+        pathname: `/shop-front/${name}`,
         query: { slug: slug, id: id, name: name },
       }}
     >

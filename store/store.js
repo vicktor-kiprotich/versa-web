@@ -1,38 +1,44 @@
 import { applyMiddleware, configureStore } from "@reduxjs/toolkit";
-// import { composeWithDevTools } from "redux-devtools-extension";
+import { useMemo } from "react";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-// import thunk from "redux-thunk";
+import thunk from "redux-thunk";
 import rootReducer from "./reducers/reducers";
 
-// const storeName = "VENN-APP";
+const middleware = [thunk];
+let store;
 
-// const saveToLocalStorage = (state) => {
-//   try {
-//     const stringState = JSON.stringify(state);
-//     localStorage.setItem(storeName, stringState);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
+function initStore(initialState) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState: initialState,
 
-// const loadFromLocalStorage = () => {
-//   try {
-//     const stringState = localStorage.getItem(storeName);
-//     if (stringState === null) return undefined;
-//     return JSON.parse(stringState);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
+    devTools: composeWithDevTools(applyMiddleware(middleware)),
+  });
+}
 
-// const middleware = [thunk];
+export const initializeStore = (preloadedState) => {
+  let _store = store ?? initStore(preloadedState);
 
-// const persistStorage = loadFromLocalStorage();
+  // After navigating to a page with an initial Redux state, merge that state
+  // with the current state in the store, and create a new store
+  if (preloadedState && store) {
+    _store = initStore({
+      ...store.getState(),
+      ...preloadedState,
+    });
+    // Reset the current store
+    store = undefined;
+  }
 
-const hive = configureStore({
-  reducer: rootReducer,
-  // preloadedState: persistStorage,
-  // devTools: composeWithDevTools(applyMiddleware(...middleware)),
-});
-// hive.subscribe(() => saveToLocalStorage(hive.getState()));
-export default hive;
+  // For SSG and SSR always create a new store
+  if (typeof window === "undefined") return _store;
+  // Create the store once in the client
+  if (!store) store = _store;
+
+  return _store;
+};
+export function useStore(initialState) {
+  const store = useMemo(() => initializeStore(initialState), [initialState]);
+  return store;
+}

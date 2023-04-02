@@ -1,149 +1,107 @@
 import { useQuery } from "@apollo/client";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { GET_PRODUCT } from "../../../graphql/queries/queries";
-import { formatCurrency, priceFormatter } from "../../../utils/price_formatter";
-import PrVariant from "../../components/p_variant";
-import SectionTitle from "../../components/section_title";
+import React from "react";
+import { SEARCH_PRODUCTS } from "../../../graphql/queries/queries";
+import Breadcrumb from "../../components/breadcrumb";
+import ProductArticle from "../../components/product_article";
+import ProductCard from "../../components/product_card";
 import Spinner from "../../components/spinner";
 
-export default function Product() {
-  const [variant, setVariant] = useState({});
+export default function Collection() {
   const router = useRouter();
-  const { loading, data, error } = useQuery(GET_PRODUCT, {
+  const { name, slug, id } = router.query;
+
+  const { loading, data, error } = useQuery(SEARCH_PRODUCTS, {
     variables: {
-      id: router.query.id,
+      input: {
+        collectionSlug: slug,
+        collectionId: id,
+        groupByProduct: true,
+      },
     },
   });
 
-  const product = data && data?.product;
-  console.log("PRODUCT", product);
-  useEffect(() => {
-    setVariant(product?.variants[0]);
-  }, [product]);
+  const products = data?.search?.items;
   if (loading) return <Spinner />;
   return (
-    <div className='container pt-10'>
-      <div className='flex items-start'>
-        <div className='flex-auto w-[35%]'>
-          <div className='flex justify-around'>
-            {" "}
-            <div className='flex-none mx-8'>
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg m-2'
-                width={80}
-              />
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg m-2'
-                width={80}
-              />
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg m-2'
-                width={80}
-              />
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg m-2'
-                width={80}
-              />
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg m-2'
-                width={80}
-              />
-            </div>{" "}
-            <div className='mx-4'>
-              <img
-                src={product?.featuredAsset?.source}
-                alt={product?.featuredAsset?.source}
-                className='rounded-lg'
-              />
+    <div className='mx-auto max-w-[1870px] px-4 md:px-6 lg:px-8 2xl:px-20 pt-16'>
+      {" "}
+      <Breadcrumb />
+      <div className='flex pt-7 lg:pt-11 pb-16 lg:pb-20 products-category'>
+        <div className='flex-shrink-0 pe-8 xl:pe-16 hidden lg:block w-80 xl:w-86 top-16 h-full sticky mr-16 bg-slate-300 p-4 rounded-lg min-h-[30%]'>
+          <div className='space-y-10'>
+            <div className='block -mb-3'>
+              <div className='flex justify-between items-center mb-4 -mt-1 border-b-2 '>
+                <h3 className='text-skin-base lg:text-xl text-15px sm:text-base font-medium text-slate-600'>
+                  Filters
+                </h3>
+                <button
+                  class='flex-shrink text-13px transition duration-150 ease-in focus:outline-none hover:text-skin-base'
+                  aria-label='Clear All'
+                >
+                  Clear All
+                </button>
+              </div>
             </div>
+            <div className='block'></div>
+          </div>
+          <div className='space-y-10'>
+            <div className='block -mb-3'>
+              <div className='flex justify-between items-center mb-4 -mt-1 border-b-2 '>
+                <h3 className='text-skin-base lg:text-xl text-15px sm:text-base font-medium text-slate-600'>
+                  Categories
+                </h3>
+              </div>
+            </div>
+            <div className='block'></div>
+          </div>
+          <div className='space-y-10'>
+            <div className='block -mb-3'>
+              <div className='flex justify-between items-center mb-4 -mt-1 border-b-2 '>
+                <h3 className='text-skin-base lg:text-xl text-15px sm:text-base font-medium text-slate-600'>
+                  Brands
+                </h3>
+              </div>
+            </div>
+            <div className='block'></div>
+          </div>
+          <div className='space-y-10'>
+            <div className='block -mb-3'>
+              <div className='flex justify-between items-center mb-4 -mt-1 border-b-2 '>
+                <h3 className='text-skin-base lg:text-xl text-15px sm:text-base font-medium text-slate-600'>
+                  Brands
+                </h3>
+              </div>
+            </div>
+            <div className='block'></div>
           </div>
         </div>
-        <div className='items-start'>
-          <div className='mx-16'>
-            <p className='text-3xl font-bold antialiased text-start text-slate-700 my-4'>
-              {variant?.name}
-            </p>
-          </div>
-          <div className='flex mx-16'>
-            <p className='text-2xl font-semibold antialiased text-start my-4 text-amber-500'>
-              {formatCurrency("en-ke", "KES", variant?.price)}
-            </p>
-            <p className='text-xl font-semibold antialiased text-start my-4 text-slate-400 mx-4 line-through '>
-              {formatCurrency("en-ke", "KES", variant?.price)}
-            </p>
-          </div>
-          <div className='mx-16 my-5'>
-            <p className='text-slate-500 text-base py-2 px-4'>
-              Brand :
-              <span className='text-slate-800 font-semibold text-base mx-2'>
-                {" "}
-                15:29:00
-              </span>
-            </p>
-            <p className='text-slate-500 text-base py-2 px-4'>
-              SKU :
-              <span className='text-slate-800 font-semibold text-lg mx-2'>
-                {" "}
-                {variant?.sku}
-              </span>
-            </p>
-            <p className='text-slate-500 text-base py-2 px-4'>
-              Weight :
-              <span className='text-slate-800 font-semibold text-base mx-2'>
-                {" "}
-                15:29:00
-              </span>
-            </p>
-            <p className='text-slate-500 text-base py-2 px-4'>
-              Shipping :
-              <span className='text-slate-800 font-semibold text-base mx-2'>
-                {" "}
-                Calculated at Checkout
-              </span>
-            </p>
+        <div className='w-full lg:-ml-2 xl:-ml-8 lg:-mt-1 ml-10'>
+          <div className='flex justify-between mb-4 border-b-2 p-4'>
+            {" "}
+            <h3 className='text-skin-base lg:text-xl text-15px sm:text-base font-medium text-slate-600'>
+              {name}{" "}
+            </h3>
+            <div>tiles</div>
           </div>
 
-          <div className='flex mx-8'>
-            {product?.variants &&
-              product?.variants?.map((item) => (
-                <PrVariant
-                  key={item.id}
-                  name={item.name}
-                  onClick={() => setVariant(item)}
-                  active={item?.id === variant?.id}
+          <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 auto-rows-max  gap-2'>
+            {" "}
+            {products &&
+              products?.map((item, index) => (
+                <ProductArticle
+                  key={index}
+                  id={item.productId}
+                  src={item.productAsset.preview}
+                  name={item.productName}
+                  min={item.priceWithTax.min}
+                  max={item.priceWithTax.max}
+                  collection={slug}
                 />
               ))}
           </div>
-          <div className='mx-24 my-10 bg-slate-200 flex flex-wrap rounded'>
-            <div className='py-4 px-4'></div>
-          </div>
-          <div className='mx-16 my-8 w-[75%]'>
-            <button className='bg-amber-500 rounded w-[75%] py-2 text-xl font-semibold text-white'>
-              ADD TO CART
-            </button>
-          </div>
         </div>
-      </div>
-      <div className='mx-4 mt-16'>
-        <SectionTitle category={{ value: false }} title='Description' />
-        <p className='antialised text-lg'>{product?.description}</p>
       </div>
     </div>
   );
-}
-
-function ProductImages() {
-  return <div className='flex '></div>;
 }

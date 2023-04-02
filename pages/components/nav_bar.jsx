@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function NavBar() {
@@ -6,9 +8,15 @@ export default function NavBar() {
       <div className='container flex justify-around items-center bg-gray  p-4    space-x-5  bg-white'>
         {" "}
         <div className='pr-20'>
-          <p className='text-cyan-600 font-bold text-4xl antialiased font-serif'>
-            Versatilis
-          </p>
+          <Link href={{ pathname: "/" }}>
+            <Image
+              className='mx-auto h-12 w-auto'
+              src='/assets/versa-logo.png'
+              alt='Logo'
+              width={80}
+              height={80}
+            />
+          </Link>
         </div>
         <div className='w-[40%] flex items-center bg-[#F7F7F7] rounded-3xl'>
           <div className='pl-5'>

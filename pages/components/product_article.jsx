@@ -39,7 +39,7 @@ export default function ProductArticle({
         <Link
           className='text-base font-semibold  leading-5  line-clamp-2 mb-2 hover:text-amber-500 text-slate-800'
           href={{
-            pathname: `/shop-front/${collection}/`,
+            pathname: `/shop-front/${collection}/${id}`,
             query: { id: id },
           }}
         >

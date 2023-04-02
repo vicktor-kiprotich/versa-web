@@ -4,11 +4,12 @@ import "../styles/globals.css";
 
 import client from "../client/apollo_client";
 import PageLayout from "./layouts/layout";
-import hive from "../store/store";
+import { useStore } from "../store/store";
 
 export default function App({ Component, pageProps }) {
+  const store = useStore(pageProps.initialReduxState);
   return (
-    <Provider store={hive}>
+    <Provider store={store}>
       <PageLayout>
         <ApolloProvider client={client}>
           {" "}
