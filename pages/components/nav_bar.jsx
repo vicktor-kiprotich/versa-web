@@ -9,13 +9,14 @@ export default function NavBar() {
         {" "}
         <div className='pr-20'>
           <Link href={{ pathname: "/" }}>
-            <Image
+            {/* <Image
               className='mx-auto h-12 w-auto'
               src='/assets/versa-logo.png'
               alt='Logo'
               width={80}
               height={80}
-            />
+            /> */}
+            <p class="text-cyan-600 font-bold text-4xl antialiased font-serif">Versatilis</p>
           </Link>
         </div>
         <div className='w-[40%] flex items-center bg-[#F7F7F7] rounded-3xl'>
