@@ -5,7 +5,7 @@ import {
   removeItem,
   updateQuantity,
   clearCart,
-} from "../store/cartSlice";
+} from "../../../store/actions/cart_actions";
 
 function Cart() {
   const dispatch = useDispatch();
