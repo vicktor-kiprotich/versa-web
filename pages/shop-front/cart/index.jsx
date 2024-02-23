@@ -9,7 +9,7 @@ import {
 
 function Cart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart);
+  const cartItems = [];
 
   const handleAddItem = (item) => {
     dispatch(addItem(item));
